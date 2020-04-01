@@ -1,0 +1,19 @@
+{
+  # Get statistics about all storage buckets in the account
+  # Limit to 5 results for convenience.
+StorageBuckets: resourceList(filter: "resource:'arn:aws:::095318393923' resourceType:'@turbot/aws-s3#/resource/types/bucket' limit:500") {
+    metadata {
+      stats {
+        total
+      }
+    }
+    items {
+      turbot {
+        title
+        id
+        tags
+        akas
+      }
+    }
+  }
+}

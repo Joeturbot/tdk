@@ -1,0 +1,15 @@
+{
+  # Query any alarms by specific tag within a specific timeframe
+  controls(filter: "state:alarm $.turbot.tags.CreatedByActor:'Joe Anybody' stateChangeTimestamp:>T-120h limit:300") {
+    items {
+      state
+      type {
+        uri
+      }
+      turbot {
+        id
+        stateChangeTimestamp
+      }
+    }
+  }
+}

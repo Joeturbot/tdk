@@ -1,0 +1,17 @@
+query alarmControls {
+  controls(filter: "state:alarm limit:300") {
+    items {
+      state
+      type {
+        uri
+        title
+      }
+      resource {
+        turbot {
+          title
+          akas
+        }
+      }
+    }
+  }
+}

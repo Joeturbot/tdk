@@ -1,0 +1,20 @@
+{
+  # Get statistics about all AWS storage buckets visible to the caller. These may
+  # be across multiple AWS Accounts. Limit the results to 5 for convenience.
+  allStorageBuckets: resourceList(filter: "resourceType:'@turbot/aws-s3#/resource/types/bucket' limit:5") {
+    metadata {
+      stats {
+        total
+      }
+    }
+    items {
+      object
+      turbot {
+          title
+          id
+          tags
+          akas
+      }
+    }
+  }
+}

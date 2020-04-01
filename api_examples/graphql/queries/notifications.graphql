@@ -1,0 +1,636 @@
+query AllActivities($filter: [String!], $paging: String) {
+  data: notifications(filter: $filter, paging: $paging) {
+    paging {
+      next
+      __typename
+    }
+    metadata {
+      stats {
+        total
+        __typename
+      }
+      __typename
+    }
+    items {
+      notificationType
+      ...NotifyData
+      ...Control
+      ...ActiveGrant
+      ...Grant
+      ...Resource
+      ...PolicyValue
+      ...PolicySetting
+      ...Actor
+      ...Favorite
+      turbot {
+        createTimestamp
+        id
+        processId
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}
+
+fragment NotifyData on Notification {
+  data
+  icon
+  message
+  __typename
+}
+
+fragment Resource on Notification {
+  resource {
+    turbot {
+      ...turbotResourceMetadata
+      __typename
+    }
+    ...resourceTrunk
+    type {
+      ...resourceTypeTrunk
+      turbot {
+        ...turbotResourceTypeMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  oldResource {
+    turbot {
+      ...turbotResourceMetadata
+      __typename
+    }
+    ...resourceTrunk
+    type {
+      ...resourceTypeTrunk
+      turbot {
+        ...turbotResourceTypeMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment resourceTrunk on Resource {
+  trunk {
+    items {
+      turbot {
+        ...turbotTrunkMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment turbotTrunkMetadata on TurbotTrunkMetadata {
+  id
+  parentId
+  path
+  title
+  __typename
+}
+
+fragment resourceTypeTrunk on ResourceType {
+  trunk {
+    items {
+      turbot {
+        ...turbotTrunkMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment turbotResourceMetadata on TurbotResourceMetadata {
+  id
+  parentId
+  path
+  title
+  __typename
+}
+
+fragment turbotResourceTypeMetadata on TurbotResourceTypeMetadata {
+  id
+  title
+  __typename
+}
+
+fragment Control on Notification {
+  control {
+    reason
+    state
+    turbot {
+      id
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    type {
+      ...controlTypeTrunk
+      turbot {
+        ...turbotControlTypeMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  oldControl {
+    reason
+    state
+    turbot {
+      id
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    type {
+      ...controlTypeTrunk
+      turbot {
+        ...turbotControlTypeMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment controlTypeTrunk on ControlType {
+  trunk {
+    items {
+      turbot {
+        ...turbotTrunkMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment turbotControlTypeMetadata on TurbotControlTypeMetadata {
+  id
+  title
+  __typename
+}
+
+fragment Grant on Notification {
+  grant {
+    turbot {
+      id
+      __typename
+    }
+    identity {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    level {
+      turbot {
+        ...turbotPermissionMetadata
+        __typename
+      }
+      __typename
+    }
+    type {
+      ...permissionTypeTrunk
+      __typename
+    }
+    __typename
+  }
+  oldGrant {
+    turbot {
+      id
+      __typename
+    }
+    identity {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    level {
+      turbot {
+        ...turbotPermissionMetadata
+        __typename
+      }
+      __typename
+    }
+    type {
+      ...permissionTypeTrunk
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment permissionTypeTrunk on PermissionType {
+  trunk {
+    items {
+      turbot {
+        ...turbotTrunkMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment turbotPermissionMetadata on TurbotPermissionMetadata {
+  id
+  path
+  title
+  __typename
+}
+
+fragment ActiveGrant on Notification {
+  activeGrant {
+    turbot {
+      id
+      __typename
+    }
+    grant {
+      turbot {
+        id
+        __typename
+      }
+      identity {
+        turbot {
+          ...turbotResourceMetadata
+          __typename
+        }
+        ...resourceTrunk
+        __typename
+      }
+      resource {
+        turbot {
+          ...turbotResourceMetadata
+          __typename
+        }
+        ...resourceTrunk
+        __typename
+      }
+      level {
+        turbot {
+          ...turbotPermissionMetadata
+          __typename
+        }
+        __typename
+      }
+      type {
+        ...permissionTypeTrunk
+        __typename
+      }
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    __typename
+  }
+  oldActiveGrant {
+    turbot {
+      id
+      __typename
+    }
+    grant {
+      turbot {
+        id
+        __typename
+      }
+      identity {
+        turbot {
+          ...turbotResourceMetadata
+          __typename
+        }
+        ...resourceTrunk
+        __typename
+      }
+      resource {
+        turbot {
+          ...turbotResourceMetadata
+          __typename
+        }
+        ...resourceTrunk
+        __typename
+      }
+      level {
+        turbot {
+          ...turbotPermissionMetadata
+          __typename
+        }
+        __typename
+      }
+      type {
+        ...permissionTypeTrunk
+        __typename
+      }
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment PolicyValue on Notification {
+  policyValue {
+    value
+    turbot {
+      id
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    type {
+      resolvedSchema
+      schema
+      secret
+      turbot {
+        ...turbotPolicyTypeMetadata
+        __typename
+      }
+      ...policyTypeTrunk
+      __typename
+    }
+    __typename
+  }
+  oldPolicyValue {
+    value
+    turbot {
+      id
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    type {
+      resolvedSchema
+      schema
+      secret
+      turbot {
+        ...turbotPolicyTypeMetadata
+        __typename
+      }
+      ...policyTypeTrunk
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment policyTypeTrunk on PolicyType {
+  trunk {
+    items {
+      turbot {
+        ...turbotTrunkMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment turbotPolicyTypeMetadata on TurbotPolicyTypeMetadata {
+  id
+  title
+  __typename
+}
+
+fragment PolicySetting on Notification {
+  policySetting {
+    value
+    turbot {
+      id
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    type {
+      turbot {
+        ...turbotPolicyTypeMetadata
+        __typename
+      }
+      resolvedSchema
+      schema
+      secret
+      ...policyTypeTrunk
+      __typename
+    }
+    __typename
+  }
+  oldPolicySetting {
+    value
+    turbot {
+      id
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    type {
+      turbot {
+        ...turbotPolicyTypeMetadata
+        __typename
+      }
+      secret
+      resolvedSchema
+      schema
+      ...policyTypeTrunk
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment Favorite on Notification {
+  favorite {
+    turbot {
+      id
+      __typename
+    }
+    actor {
+      identity {
+        turbot {
+          ...turbotResourceMetadata
+          __typename
+        }
+        ...identityTrunk
+        __typename
+      }
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    __typename
+  }
+  oldFavorite {
+    turbot {
+      id
+      __typename
+    }
+    actor {
+      identity {
+        turbot {
+          ...turbotResourceMetadata
+          __typename
+        }
+        ...identityTrunk
+        __typename
+      }
+      __typename
+    }
+    resource {
+      turbot {
+        ...turbotResourceMetadata
+        __typename
+      }
+      ...resourceTrunk
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment identityTrunk on Identity {
+  trunk {
+    items {
+      turbot {
+        ...turbotTrunkMetadata
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+  __typename
+}
+
+fragment Actor on Notification {
+  actor {
+    identity {
+      ...Identity
+      __typename
+    }
+    persona {
+      ...Identity
+      __typename
+    }
+    role {
+      ...Identity
+      __typename
+    }
+    alternatePersona
+    __typename
+  }
+  __typename
+}
+
+fragment Identity on Identity {
+  picture
+  title
+  turbot {
+    title
+    __typename
+  }
+  __typename
+}
+
+
+"variables":{"filter":"resource:180804152049332 sort:-timestamp !notificationType:action limit:25","paging":null}
