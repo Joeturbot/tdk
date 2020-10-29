@@ -6,6 +6,7 @@ Parameters:
     Description: VPC where Turbot is installed into.
     Type: "AWS::EC2::VPC::Id"
 
+# Please note that these are minimum requirements for making Turbot operational.  Please add or remove rules
 Resources:
   OutboundInternetSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -31,6 +32,21 @@ Resources:
           CidrIp: 0.0.0.0/0
           FromPort: 80
           ToPort: 80
+          IpProtocol: tcp
+        - Description: Outbound NTP
+          CidrIp: 0.0.0.0/0
+          FromPort: 23
+          ToPort: 23
+          IpProtocol: udp
+        - Description: Outbound DNS Access
+          CidrIp: 0.0.0.0/0
+          FromPort: 53
+          ToPort: 53
+          IpProtocol: udp
+        - Description: Outbound DNS Access
+          CidrIp: 0.0.0.0/0
+          FromPort: 53
+          ToPort: 53
           IpProtocol: tcp
 
   LoadBalancerSecurityGroup:
